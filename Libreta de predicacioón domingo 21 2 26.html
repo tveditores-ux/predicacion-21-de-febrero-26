@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Mente de Hijo - Libreta de Predicación</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --accent-color: #2e7d32;
+            --card-bg: #f5f5f5;
+            --verse-bg: #e8f5e9;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --accent-color: #81c784;
+            --card-bg: #1e1e1e;
+            --verse-bg: #1b2e1b;
+        }
+
+        body.sepia-mode {
+            --bg-color: #f4ecd8;
+            --text-color: #5b4636;
+            --accent-color: #a0522d;
+            --card-bg: #ede0c4;
+            --verse-bg: #e4d5b7;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            transition: all 0.3s ease;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- TOOLBAR --- */
+        .toolbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .timer-display {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .controls button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin: 0 4px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- CONTENIDO --- */
+        .content {
+            max-width: 800px;
+            margin: 80px auto 40px;
+            padding: 20px;
+            font-size: 1.2rem; /* Tamaño base ajustable */
+        }
+
+        h1 { color: var(--accent-color); border-bottom: 2px solid; padding-bottom: 10px; }
+        h2 { color: var(--accent-color); margin-top: 40px; border-left: 5px solid; padding-left: 15px; }
+        h3 { color: var(--accent-color); text-transform: uppercase; font-size: 1rem; letter-spacing: 1px; }
+
+        .verse-box {
+            background: var(--verse-bg);
+            padding: 20px;
+            border-radius: 8px;
+            font-style: italic;
+            margin: 20px 0;
+            border-right: 4px solid var(--accent-color);
+        }
+
+        .principio-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .estrategia-box {
+            border: 1px dashed var(--accent-color);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+
+        .footer-space { height: 100px; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .content { font-size: 1.1rem; padding: 15px; }
+            .toolbar { flex-wrap: wrap; height: auto; padding: 5px; }
+            .timer-display { width: 100%; text-align: center; margin-bottom: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="toolbar">
+        <div class="timer-display" id="timer">00:00:00</div>
+        <div class="controls">
+            <button onclick="startTimer()">▶</button>
+            <button onclick="stopTimer()">⏸</button>
+            <button onclick="resetTimer()">🔄</button>
+            <button onclick="changeFontSize(1)">A+</button>
+            <button onclick="changeFontSize(-1)">A-</button>
+            <button onclick="toggleTheme('light')" style="background:#eee; color:#000;">L</button>
+            <button onclick="toggleTheme('dark')" style="background:#222; color:#fff;">D</button>
+            <button onclick="toggleTheme('sepia')" style="background:#d2b48c; color:#000;">S</button>
+        </div>
+    </div>
+
+    <div class="content" id="main-content">
+        <h1>La Mente de Hijo:</h1>
+        <p><strong>La Verdad detrás de la no-reacción de Jesús ante el mal</strong></p>
+
+        <h2>El Fundamento del Encuentro</h2>
+        <h3>La Buena Noticia:</h3>
+        <div class="verse-box">
+            Juan 17:24: "Padre, quiero que los que me has dado estén conmigo donde yo estoy. Que vean mi gloria, la gloria que me has dado porque me amaste desde antes de la creación del mundo."
+        </div>
+        <p><strong>El motivo de congregarnos:</strong> No es solo sentirse bien, sino <strong>SER EDIFICADOS</strong>.</p>
+        <p>La edificación te hace consciente y te da estrategias para la vida.</p>
+        <p><strong>La base:</strong> La gracia frente al esfuerzo humano.</p>
+
+        <h2>Introducción</h2>
+        <div class="verse-box">
+            <p><strong>Mateo 26:50-54:</strong> "Y Jesús le dijo: Amigo, ¿a qué vienes? Entonces se acercaron y echaron mano a Jesús, y le prendieron. Pero uno de los que estaban con Jesús, extendiendo la mano, sacó su espada, e hiriendo a un siervo del sumo sacerdote, le quitó la oreja. Entonces Jesús le dijo: Vuelve tu espada a su lugar; porque todos los que tomen espada, a espada perecerán. ¿Acaso piensas que no puedo ahora orar a mi Padre, y que él no me daría más de doce legiones de ángeles? ¿Cómo, pues, se cumplirían las Escrituras, de que es necesario que así se haga?"</p>
+            <p><strong>Juan 18:10:</strong> "Entonces Simón Pedro, que tenía una espada, la sacó, e hirió al siervo del sumo sacerdote, y le cortó la oreja derecha. Y el siervo se llamaba Malco."</p>
+        </div>
+
+        <p><strong>Reflexión:</strong> Hay quienes piensan que el entorno nos cambia, pero en la vida de Pedro está demostrado que a pesar de haber estado con Jesús tres años en un entorno extraordinario, lo que le cambia no viene de fuera. Se evidencia en cómo él reacciona sacando su espada, pero luego vimos a Pedro sufriendo una transformación y un cambio.</p>
+        
+        <p><strong>Conclusión de la idea:</strong> Esto lleva a pensar que la transformación no es porque el entorno cambie, sino porque nos exponemos a la obra de Cristo y confiamos en lo que somos en él.</p>
+
+        <h2>Principios del Reino y sus Aplicaciones</h2>
+
+        <div class="principio-card">
+            <h3>1. El Principio de la Reacción (Ley del Hierro)</h3>
+            <p><strong>Verdad del Reino:</strong> No hagas a otros lo que no deseas que te hagan (V. 52).</p>
+            <div class="verse-box">
+                Mateo 26:52: "Entonces Jesús le dijo: Vuelve tu espada a su lugar; porque todos los que tomen espada, a espada perecerán."
+            </div>
+            <p><strong>Aplicación (1.A):</strong> No permitas que el mal de otros te haga actuar mal.</p>
+            <div class="estrategia-box">
+                <strong>Estrategia:</strong> Cuídate de la sugestión de la mente. No reacciones desde el entorno. Date un momento para pensar y usa como filtro la manera de pensar de Cristo.
+            </div>
+        </div>
+
+        <div class="principio-card">
+            <h3>2. El Principio del Cuidado del Reino</h3>
+            <p><strong>Verdad del Reino:</strong> A los hijos del Rey los cuida el Reino (V. 53).</p>
+            <div class="verse-box">
+                Mateo 26:53: "¿Acaso piensas que no puedo ahora orar a mi Padre, y que él no me daría más de doce legiones de ángeles?"
+            </div>
+            <p><strong>Aplicación (2.A):</strong> Pudiendo Jesús pedir protección al Padre, no lo hizo en ningún momento.</p>
+            <div class="estrategia-box">
+                <strong>Estrategia:</strong> Asumía que era cuidado. Asumió propósito y finalidad. Esto ayuda a la mente a dejar de depender de las solicitudes.
+            </div>
+            <p><strong>Confianza en la Oración Sacerdotal:</strong></p>
+            <div class="verse-box">
+                Juan 17:11, 15: "Y ya no estoy en el mundo; mas estos están en el mundo, y yo voy a ti. Padre santo, a los que me has dado, guárdalos en tu nombre... No ruego que los quites del mundo, sino que los guardes del mal."
+            </div>
+            <ul>
+                <li>Evita que operemos desde el instinto de supervivencia (Miedo).</li>
+                <li>Nos permite operar bajo propósito (Amor).</li>
+            </ul>
+        </div>
+
+        <div class="principio-card">
+            <h3>3. El Principio de la Finalidad</h3>
+            <p><strong>Verdad del Reino:</strong> Opera por finalidad, no por reacción.</p>
+            <p><strong>Aplicación (3.A):</strong> El lugar más seguro para un hijo de Dios es en la voluntad del Padre.</p>
+            <div class="estrategia-box">
+                <strong>Estrategia:</strong> Que la obra de Dios se cumpla en nosotros es la mejor forma de aquietar los pensamientos y las emociones. Estar bajo una consciencia de familiaridad. La oración se convierte en el puente de conexión, no en la vía de escape.
+            </div>
+        </div>
+
+        <h2>Conclusión y Conexión Vital</h2>
+        <p>La razón por la que Jesús pudo mantenerse en paz mientras Pedro sacaba la espada no fue por autocontrol externo, sino por <strong>La Mente de Hijo</strong>. Él no veía un ataque, veía un propósito; no veía abandono, veía cuidado paternal.</p>
+        
+        <div class="principio-card" style="border-left: 5px solid gold;">
+            <p>Lo más extraordinario de esta verdad es que este diseño no es exclusivo de Jesús en el pasado. Hoy, por la obra terminada en la cruz y la unión con Él, podemos afirmar con total seguridad: <strong>Nosotros tenemos la mente de Cristo</strong>. Ya no estamos condenados a reaccionar como Pedro; tenemos la capacidad legal y espiritual de procesar la vida desde la misma consciencia de plenitud y paz con la que Jesús caminó hacia la cruz.</p>
+        </div>
+
+        <div class="footer-space"></div>
+    </div>
+
+    <script>
+        // --- LÓGICA DEL CRONÓMETRO ---
+        let seconds = 0;
+        let timerInterval = null;
+
+        function updateDisplay() {
+            const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            document.getElementById('timer').innerText = `${h}:${m}:${s}`;
+        }
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                seconds++;
+                updateDisplay();
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            stopTimer();
+            seconds = 0;
+            updateDisplay();
+        }
+
+        // --- LÓGICA DE TAMAÑO DE FUENTE ---
+        let currentFontSize = 1.2;
+        function changeFontSize(delta) {
+            currentFontSize += delta * 0.1;
+            if (currentFontSize < 0.8) currentFontSize = 0.8;
+            if (currentFontSize > 3.0) currentFontSize = 3.0;
+            document.getElementById('main-content').style.fontSize = currentFontSize + 'rem';
+        }
+
+        // --- LÓGICA DE TEMAS ---
+        function toggleTheme(theme) {
+            document.body.classList.remove('dark-mode', 'sepia-mode');
+            if (theme === 'dark') document.body.classList.add('dark-mode');
+            if (theme === 'sepia') document.body.classList.add('sepia-mode');
+        }
+    </script>
+</body>
+</html>
