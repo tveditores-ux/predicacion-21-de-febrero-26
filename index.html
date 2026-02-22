@@ -10,7 +10,8 @@
             --text-color: #1a1a1a;
             --accent-color: #2e7d32;
             --card-bg: #f5f5f5;
-            --verse-bg: #e8f5e9;
+            --verse-bg: #fdf2f2; /* Fondo sutil para resaltar el rojo */
+            --verse-text: #d32f2f; /* Rojo Biblia */
         }
 
         body.dark-mode {
@@ -18,7 +19,8 @@
             --text-color: #e0e0e0;
             --accent-color: #81c784;
             --card-bg: #1e1e1e;
-            --verse-bg: #1b2e1b;
+            --verse-bg: #2a1a1a;
+            --verse-text: #ff5252; /* Rojo brillante para fondo oscuro */
         }
 
         body.sepia-mode {
@@ -26,7 +28,8 @@
             --text-color: #5b4636;
             --accent-color: #a0522d;
             --card-bg: #ede0c4;
-            --verse-bg: #e4d5b7;
+            --verse-bg: #f1e4d1;
+            --verse-text: #b71c1c;
         }
 
         body {
@@ -76,7 +79,7 @@
             max-width: 800px;
             margin: 80px auto 40px;
             padding: 20px;
-            font-size: 1.2rem; /* Tamaño base ajustable */
+            font-size: 1.2rem;
         }
 
         h1 { color: var(--accent-color); border-bottom: 2px solid; padding-bottom: 10px; }
@@ -85,11 +88,13 @@
 
         .verse-box {
             background: var(--verse-bg);
+            color: var(--verse-text); /* TEXTO BÍBLICO EN ROJO */
             padding: 20px;
             border-radius: 8px;
             font-style: italic;
+            font-weight: 500;
             margin: 20px 0;
-            border-right: 4px solid var(--accent-color);
+            border-right: 4px solid var(--verse-text);
         }
 
         .principio-card {
@@ -109,7 +114,6 @@
 
         .footer-space { height: 100px; }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 600px) {
             .content { font-size: 1.1rem; padding: 15px; }
             .toolbar { flex-wrap: wrap; height: auto; padding: 5px; }
@@ -210,7 +214,6 @@
     </div>
 
     <script>
-        // --- LÓGICA DEL CRONÓMETRO ---
         let seconds = 0;
         let timerInterval = null;
 
@@ -240,7 +243,6 @@
             updateDisplay();
         }
 
-        // --- LÓGICA DE TAMAÑO DE FUENTE ---
         let currentFontSize = 1.2;
         function changeFontSize(delta) {
             currentFontSize += delta * 0.1;
@@ -249,7 +251,6 @@
             document.getElementById('main-content').style.fontSize = currentFontSize + 'rem';
         }
 
-        // --- LÓGICA DE TEMAS ---
         function toggleTheme(theme) {
             document.body.classList.remove('dark-mode', 'sepia-mode');
             if (theme === 'dark') document.body.classList.add('dark-mode');
