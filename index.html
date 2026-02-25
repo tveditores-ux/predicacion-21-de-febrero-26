@@ -3,258 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Mente de Hijo - Libreta de Predicación</title>
+    <title>Cómo anclar tu mente a la Verdad - Libreta Interactiva</title>
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --accent-color: #2e7d32;
-            --card-bg: #f5f5f5;
-            --verse-bg: #fdf2f2; /* Fondo sutil para resaltar el rojo */
-            --verse-text: #d32f2f; /* Rojo Biblia */
+            /* Modo Claro (Por defecto) */
+            --bg-color: #f9f9f6;
+            --paper-color: #ffffff;
+            --text-color: #333333;
+            --accent-color: #2c3e50;
+            --verse-bg: #f0f4f8;
+            --verse-border: #3498db;
+            --highlight-bg: #fff3cd;
+            --highlight-border: #ffeeba;
+            --toolbar-bg: #ffffff;
+            --btn-bg: #ecf0f1;
+            --btn-hover: #bdc3c7;
         }
 
         body.dark-mode {
+            /* Modo Oscuro */
             --bg-color: #121212;
+            --paper-color: #1e1e1e;
             --text-color: #e0e0e0;
-            --accent-color: #81c784;
-            --card-bg: #1e1e1e;
-            --verse-bg: #2a1a1a;
-            --verse-text: #ff5252; /* Rojo brillante para fondo oscuro */
-        }
-
-        body.sepia-mode {
-            --bg-color: #f4ecd8;
-            --text-color: #5b4636;
-            --accent-color: #a0522d;
-            --card-bg: #ede0c4;
-            --verse-bg: #f1e4d1;
-            --verse-text: #b71c1c;
+            --accent-color: #5dade2;
+            --verse-bg: #2a2a2a;
+            --verse-border: #5dade2;
+            --highlight-bg: #3a3215;
+            --highlight-border: #66500b;
+            --toolbar-bg: #1e1e1e;
+            --btn-bg: #333333;
+            --btn-hover: #4d4d4d;
         }
 
         body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            transition: all 0.3s ease;
-            margin: 0;
-            padding: 0;
             line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        /* --- TOOLBAR --- */
+        /* Barra de herramientas flotante */
         .toolbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--card-bg);
+            position: sticky;
+            top: 10px;
+            background-color: var(--toolbar-bg);
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto 20px auto;
             z-index: 1000;
+            border: 1px solid rgba(128, 128, 128, 0.2);
         }
 
-        .timer-display {
-            font-family: 'Courier New', Courier, monospace;
+        .tools-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button {
+            background-color: var(--btn-bg);
+            color: var(--text-color);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
             font-weight: bold;
-            font-size: 1.5rem;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--btn-hover);
+        }
+
+        #timerDisplay {
+            font-size: 1.2em;
+            font-weight: bold;
+            font-variant-numeric: tabular-nums;
+            min-width: 60px;
+            text-align: center;
             color: var(--accent-color);
         }
 
-        .controls button {
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            margin: 0 4px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* --- CONTENIDO --- */
-        .content {
+        /* Libreta principal */
+        .notebook {
             max-width: 800px;
-            margin: 80px auto 40px;
-            padding: 20px;
-            font-size: 1.2rem;
-        }
-
-        h1 { color: var(--accent-color); border-bottom: 2px solid; padding-bottom: 10px; }
-        h2 { color: var(--accent-color); margin-top: 40px; border-left: 5px solid; padding-left: 15px; }
-        h3 { color: var(--accent-color); text-transform: uppercase; font-size: 1rem; letter-spacing: 1px; }
-
-        .verse-box {
-            background: var(--verse-bg);
-            color: var(--verse-text); /* TEXTO BÍBLICO EN ROJO */
-            padding: 20px;
+            margin: 0 auto;
+            background-color: var(--paper-color);
+            padding: 40px;
             border-radius: 8px;
-            font-style: italic;
-            font-weight: 500;
-            margin: 20px 0;
-            border-right: 4px solid var(--verse-text);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 8px solid var(--accent-color);
+            font-size: 16px; /* Tamaño base modificable */
+            transition: font-size 0.2s;
+            outline: none; /* Quita el borde azul al hacer clic para editar */
         }
 
-        .principio-card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
-            margin: 30px 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+        h1 { color: var(--accent-color); font-size: 2.2em; text-align: center; margin-bottom: 5px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
+        h2 { color: var(--accent-color); font-size: 1.5em; margin-top: 35px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        
+        .buena-noticia { background-color: var(--accent-color); color: white; padding: 15px; border-radius: 5px; margin-bottom: 30px; text-align: center; font-style: italic; }
+        .buena-noticia strong { display: block; text-transform: uppercase; font-size: 0.9em; letter-spacing: 1px; margin-bottom: 5px; font-style: normal; }
+        
+        .verse-box { background-color: var(--verse-bg); border-left: 4px solid var(--verse-border); padding: 10px 15px; margin: 10px 0; font-style: italic; color: var(--text-color); opacity: 0.9; }
+        
+        ul { padding-left: 20px; }
+        li { margin-bottom: 15px; }
+        
+        .highlight-box { background-color: var(--highlight-bg); border: 1px solid var(--highlight-border); padding: 20px; border-radius: 5px; margin-top: 30px; text-align: center; font-size: 1.1em; font-weight: bold; color: var(--text-color); }
+        .bold-term { font-weight: bold; color: var(--accent-color); }
 
-        .estrategia-box {
-            border: 1px dashed var(--accent-color);
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 5px;
-        }
-
-        .footer-space { height: 100px; }
-
-        @media (max-width: 600px) {
-            .content { font-size: 1.1rem; padding: 15px; }
-            .toolbar { flex-wrap: wrap; height: auto; padding: 5px; }
-            .timer-display { width: 100%; text-align: center; margin-bottom: 5px; }
+        /* Estilo para que el usuario sepa que puede editar */
+        .notebook:focus {
+            box-shadow: 0 0 0 2px var(--accent-color);
         }
     </style>
 </head>
 <body>
 
     <div class="toolbar">
-        <div class="timer-display" id="timer">00:00:00</div>
-        <div class="controls">
-            <button onclick="startTimer()">▶</button>
-            <button onclick="stopTimer()">⏸</button>
-            <button onclick="resetTimer()">🔄</button>
-            <button onclick="changeFontSize(1)">A+</button>
-            <button onclick="changeFontSize(-1)">A-</button>
-            <button onclick="toggleTheme('light')" style="background:#eee; color:#000;">L</button>
-            <button onclick="toggleTheme('dark')" style="background:#222; color:#fff;">D</button>
-            <button onclick="toggleTheme('sepia')" style="background:#d2b48c; color:#000;">S</button>
+        <div class="tools-group">
+            <span id="timerDisplay">00:00</span>
+            <button id="startStopBtn" onclick="toggleTimer()">▶ Iniciar</button>
+            <button onclick="resetTimer()">🔄 Cero</button>
+        </div>
+        
+        <div class="tools-group">
+            <button onclick="changeFontSize(-2)">A -</button>
+            <button onclick="changeFontSize(2)">A +</button>
+        </div>
+
+        <div class="tools-group">
+            <button id="themeBtn" onclick="toggleTheme()">🌙 Noche</button>
         </div>
     </div>
 
-    <div class="content" id="main-content">
-        <h1>La Mente de Hijo:</h1>
-        <p><strong>La Verdad detrás de la no-reacción de Jesús ante el mal</strong></p>
-
-        <h2>El Fundamento del Encuentro</h2>
-        <h3>La Buena Noticia:</h3>
-        <div class="verse-box">
-            Juan 17:24: "Padre, quiero que los que me has dado estén conmigo donde yo estoy. Que vean mi gloria, la gloria que me has dado porque me amaste desde antes de la creación del mundo."
-        </div>
-        <p><strong>El motivo de congregarnos:</strong> No es solo sentirse bien, sino <strong>SER EDIFICADOS</strong>.</p>
-        <p>La edificación te hace consciente y te da estrategias para la vida.</p>
-        <p><strong>La base:</strong> La gracia frente al esfuerzo humano.</p>
-
-        <h2>Introducción</h2>
-        <div class="verse-box">
-            <p><strong>Mateo 26:50-54:</strong> "Y Jesús le dijo: Amigo, ¿a qué vienes? Entonces se acercaron y echaron mano a Jesús, y le prendieron. Pero uno de los que estaban con Jesús, extendiendo la mano, sacó su espada, e hiriendo a un siervo del sumo sacerdote, le quitó la oreja. Entonces Jesús le dijo: Vuelve tu espada a su lugar; porque todos los que tomen espada, a espada perecerán. ¿Acaso piensas que no puedo ahora orar a mi Padre, y que él no me daría más de doce legiones de ángeles? ¿Cómo, pues, se cumplirían las Escrituras, de que es necesario que así se haga?"</p>
-            <p><strong>Juan 18:10:</strong> "Entonces Simón Pedro, que tenía una espada, la sacó, e hirió al siervo del sumo sacerdote, y le cortó la oreja derecha. Y el siervo se llamaba Malco."</p>
-        </div>
-
-        <p><strong>Reflexión:</strong> Hay quienes piensan que el entorno nos cambia, pero en la vida de Pedro está demostrado que a pesar de haber estado con Jesús tres años en un entorno extraordinario, lo que le cambia no viene de fuera. Se evidencia en cómo él reacciona sacando su espada, pero luego vimos a Pedro sufriendo una transformación y un cambio.</p>
+    <div class="notebook" id="sermonContent" contenteditable="true">
         
-        <p><strong>Conclusión de la idea:</strong> Esto lleva a pensar que la transformación no es porque el entorno cambie, sino porque nos exponemos a la obra de Cristo y confiamos en lo que somos en él.</p>
-
-        <h2>Principios del Reino y sus Aplicaciones</h2>
-
-        <div class="principio-card">
-            <h3>1. El Principio de la Reacción (Ley del Hierro)</h3>
-            <p><strong>Verdad del Reino:</strong> No hagas a otros lo que no deseas que te hagan (V. 52).</p>
-            <div class="verse-box">
-                Mateo 26:52: "Entonces Jesús le dijo: Vuelve tu espada a su lugar; porque todos los que tomen espada, a espada perecerán."
-            </div>
-            <p><strong>Aplicación (1.A):</strong> No permitas que el mal de otros te haga actuar mal.</p>
-            <div class="estrategia-box">
-                <strong>Estrategia:</strong> Cuídate de la sugestión de la mente. No reacciones desde el entorno. Date un momento para pensar y usa como filtro la manera de pensar de Cristo.
-            </div>
+        <div class="buena-noticia">
+            <strong>Buena Noticia</strong>
+            1 Corintios 2:16: "Porque ¿quién conoció la mente del Señor? ¿Quién le instruirá? Mas nosotros tenemos la mente de Cristo."
         </div>
 
-        <div class="principio-card">
-            <h3>2. El Principio del Cuidado del Reino</h3>
-            <p><strong>Verdad del Reino:</strong> A los hijos del Rey los cuida el Reino (V. 53).</p>
-            <div class="verse-box">
-                Mateo 26:53: "¿Acaso piensas que no puedo ahora orar a mi Padre, y que él no me daría más de doce legiones de ángeles?"
-            </div>
-            <p><strong>Aplicación (2.A):</strong> Pudiendo Jesús pedir protección al Padre, no lo hizo en ningún momento.</p>
-            <div class="estrategia-box">
-                <strong>Estrategia:</strong> Asumía que era cuidado. Asumió propósito y finalidad. Esto ayuda a la mente a dejar de depender de las solicitudes.
-            </div>
-            <p><strong>Confianza en la Oración Sacerdotal:</strong></p>
-            <div class="verse-box">
-                Juan 17:11, 15: "Y ya no estoy en el mundo; mas estos están en el mundo, y yo voy a ti. Padre santo, a los que me has dado, guárdalos en tu nombre... No ruego que los quites del mundo, sino que los guardes del mal."
-            </div>
-            <ul>
-                <li>Evita que operemos desde el instinto de supervivencia (Miedo).</li>
-                <li>Nos permite operar bajo propósito (Amor).</li>
-            </ul>
-        </div>
+        <h1>Cómo anclar tu mente a la Verdad</h1>
 
-        <div class="principio-card">
-            <h3>3. El Principio de la Finalidad</h3>
-            <p><strong>Verdad del Reino:</strong> Opera por finalidad, no por reacción.</p>
-            <p><strong>Aplicación (3.A):</strong> El lugar más seguro para un hijo de Dios es en la voluntad del Padre.</p>
-            <div class="estrategia-box">
-                <strong>Estrategia:</strong> Que la obra de Dios se cumpla en nosotros es la mejor forma de aquietar los pensamientos y las emociones. Estar bajo una consciencia de familiaridad. La oración se convierte en el puente de conexión, no en la vía de escape.
-            </div>
-        </div>
+        <h2>Introducción: El Puente hacia la nueva normalidad</h2>
+        <ul>
+            <li><span class="bold-term">El repaso:</span> La semana pasada vimos que las crisis son como apretar un tubo de pasta dental: solo revelan lo que hay dentro. Vimos que el vino nuevo de la gracia revienta el odre del viejo "yo".</li>
+            <li><span class="bold-term">El problema:</span> A veces creemos que ser un odre nuevo y "pensar bien" significa que nunca más tendremos ansiedad, dudas o miedo. Esa es una carga imposible en la sociedad actual.</li>
+            <li><span class="bold-term">La Verdad:</span> Hoy vamos a desarmar el motor de nuestra mente para entender cómo funciona, y luego veremos la radiografía de un colapso mental en uno de los hombres más ungidos de la Biblia, para entender cómo la Gracia interviene cuando nuestro motor se funde.</li>
+        </ul>
 
-        <h2>Conclusión y Conexión Vital</h2>
-        <p>La razón por la que Jesús pudo mantenerse en paz mientras Pedro sacaba la espada no fue por autocontrol externo, sino por <strong>La Mente de Hijo</strong>. Él no veía un ataque, veía un propósito; no veía abandono, veía cuidado paternal.</p>
+        <h2>I. El Mapa de la Mente: Los 6 sistemas operativos</h2>
+        <p>Antes de ver una crisis, necesitamos entender cómo diseñó Dios nuestro ecosistema mental. Todo pensamiento hace este recorrido:</p>
         
-        <div class="principio-card" style="border-left: 5px solid gold;">
-            <p>Lo más extraordinario de esta verdad es que este diseño no es exclusivo de Jesús en el pasado. Hoy, por la obra terminada en la cruz y la unión con Él, podemos afirmar con total seguridad: <strong>Nosotros tenemos la mente de Cristo</strong>. Ya no estamos condenados a reaccionar como Pedro; tenemos la capacidad legal y espiritual de procesar la vida desde la misma consciencia de plenitud y paz con la que Jesús caminó hacia la cruz.</p>
+        <ul>
+            <li><span class="bold-term">La Atención (La Linterna):</span> La puerta de entrada.
+                <div class="verse-box">Colosenses 3:2: "Poned la mira en las cosas de arriba, no en las de la tierra."</div>
+                Es lo que decides iluminar. Aquello a lo que le prestas atención, crece.
+            </li>
+            
+            <li><span class="bold-term">Las Emociones (El Tablero de Alarmas):</span> La reacción química.
+                <div class="verse-box">Salmo 42:5: "¿Por qué te abates, oh alma mía, y te turbas dentro de mí? Espera en Dios."</div>
+                No son pecado, son indicadores. Son alarmas válidas que nos avisan que algo está pasando.
+            </li>
+            
+            <li><span class="bold-term">La Memoria (El Archivo):</span> El registro histórico.
+                <div class="verse-box">Lamentaciones 3:21: "Esto traigo a mi memoria, por lo cual tengo esperanza."</div>
+                El lugar donde guardamos el registro de quiénes somos y qué nos ha pasado.
+            </li>
+            
+            <li><span class="bold-term">La Imaginación (El Simulador):</span> La proyección.
+                <div class="verse-box">Isaías 26:3: "Tú guardarás en completa paz a aquel cuyo pensamiento [imaginación sostenida] en ti persevera."</div>
+                La capacidad de proyectar el futuro. Es útil para planear, pero destructiva si la usamos para adivinar catástrofes o inventar identidades que Dios no nos dio.
+            </li>
+            
+            <li><span class="bold-term">La Razón (El Analista):</span> El filtro lógico.
+                <div class="verse-box">2 Corintios 10:5: "Derribando argumentos y toda altivez que se levanta contra el conocimiento de Dios."</div>
+                La lógica que intenta darle sentido a los cuatro puntos anteriores.
+            </li>
+            
+            <li><span class="bold-term">La Voluntad (El Timón):</span> La decisión.
+                <div class="verse-box">Filipenses 2:13: "Porque Dios es el que en vosotros produce así el querer como el hacer, por su buena voluntad."</div>
+                La elección final y la acción que tomamos.
+            </li>
+        </ul>
+
+        <h2>II. El caso de Elías</h2>
+        <p>Veamos este mapa funcionando en la vida real. Elías acaba de ver fuego caer del cielo en el Carmelo, pero recibe una amenaza de muerte de la reina Jezabel (un mensaje de WhatsApp destructivo). En cuestión de segundos, su sistema colapsa:</p>
+        
+        <ul>
+            <li><span class="bold-term">Error en la Atención:</span> 
+                <div class="verse-box">> 1 Reyes 19:3: "Viendo, pues, el peligro..."</div> 
+                Elías apagó la linterna del milagro de ayer y la enfocó solo en la amenaza.
+            </li>
+            <li><span class="bold-term">Se disparan las Emociones:</span> Al iluminar la amenaza, la alarma de pánico sonó. Sintió terror y huyó para salvar su vida.</li>
+            <li><span class="bold-term">Busca en el Archivo equivocado (Memoria):</span> 
+                <div class="verse-box">> 1 Reyes 19:4: "...pues no soy yo mejor que mis padres."</div> 
+                Su mente no buscó el archivo de las promesas de Dios, buscó el archivo de sus fracasos generacionales.
+            </li>
+            <li><span class="bold-term">El Simulador le miente (Imaginación):</span> 
+                <div class="verse-box">> 1 Reyes 19:10: "...y sólo yo he quedado, y me buscan para quitarme la vida."</div> 
+                Creó una película falsa donde era el único creyente vivo. (Su emoción era real, pero su imaginación le estaba mintiendo).
+            </li>
+            <li><span class="bold-term">El Analista es secuestrado (Razón):</span> Su lógica, alimentada por el miedo, concluyó: "Es imposible ganar, el ministerio fracasó, no hay salida matemática".</li>
+            <li><span class="bold-term">El Timón del Miedo (Voluntad):</span> 
+                <div class="verse-box">> 1 Reyes 19:4: "...y vino y se sentó debajo de un enebro, deseando morirse."</div> 
+                Tomó la decisión final: aislarse y rendirse.
+            </li>
+        </ul>
+
+        <h2>III. La Respuesta de la Gracia</h2>
+        <ul>
+            <li><span class="bold-term">El contraste:</span> Cuando nuestra mente hace cortocircuito por el estrés, la religión nos condena. Si los amigos de Job hubieran estado ahí, le habrían gritado a Elías: "¡Falto de fe, perdiste la unción, pecador!".</li>
+            <li><span class="bold-term">La acción de la Gracia:</span> Dios sabe que Elías no está rebelde, está exhausto.
+                <div class="verse-box">1 Reyes 19:5-6: "Y echándose debajo del enebro, se quedó dormido; y he aquí luego un ángel le tocó, y le dijo: Levántate, come... y comió y bebió, y volvió a dormirse."</div>
+                Dios no le da un sermón; le da pan, agua y lo manda a dormir. Restaura su cuerpo para apagar las alarmas, y luego, con un "silbo apacible", corrige su Razón y su Imaginación diciéndole la verdad: "No estás solo, hay 7.000 más".
+            </li>
+        </ul>
+
+        <h2>Aplicación Práctica</h2>
+        <ul>
+            <li><span class="bold-term">El punto de quiebre:</span> No puedes evitar que la Alarma (Emoción) suene cuando llega una crisis. Pero el mejor lugar para romper el ciclo es cuando el balón le llega a la Razón.</li>
+            <li><span class="bold-term">El Freno:</span> Cuando el simulador (la imaginación) empiece a proyectar películas de terror y escenarios catastróficos, usa tu Razón iluminada por el Espíritu para pitar la falta. Cede el silbato a la Paz de Cristo.</li>
+        </ul>
+
+        <div class="highlight-box">
+            Llévate esto a casa:<br>
+            "Mi emoción es real, pero mi imaginación no es profeta. Corto la película aquí porque Dios no ha dicho esto. El miedo está gritando, pero la Gracia tiene el silbato."
         </div>
 
-        <div class="footer-space"></div>
     </div>
 
     <script>
+        // --- LÓGICA DEL CRONÓMETRO ---
+        let timerInterval;
         let seconds = 0;
-        let timerInterval = null;
+        let isRunning = false;
 
-        function updateDisplay() {
-            const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
-            const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-            const s = (seconds % 60).toString().padStart(2, '0');
-            document.getElementById('timer').innerText = `${h}:${m}:${s}`;
+        function updateTimerDisplay() {
+            const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+            const sec = String(seconds % 60).padStart(2, '0');
+            document.getElementById('timerDisplay').textContent = `${min}:${sec}`;
         }
 
-        function startTimer() {
-            if (timerInterval) return;
-            timerInterval = setInterval(() => {
-                seconds++;
-                updateDisplay();
-            }, 1000);
-        }
-
-        function stopTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
+        function toggleTimer() {
+            const btn = document.getElementById('startStopBtn');
+            if (isRunning) {
+                clearInterval(timerInterval);
+                btn.textContent = '▶ Iniciar';
+                btn.style.backgroundColor = 'var(--btn-bg)';
+            } else {
+                timerInterval = setInterval(() => {
+                    seconds++;
+                    updateTimerDisplay();
+                }, 1000);
+                btn.textContent = '⏸ Pausar';
+                btn.style.backgroundColor = '#ffcccb'; // Indicador visual de que está corriendo
+            }
+            isRunning = !isRunning;
         }
 
         function resetTimer() {
-            stopTimer();
+            clearInterval(timerInterval);
             seconds = 0;
-            updateDisplay();
+            isRunning = false;
+            updateTimerDisplay();
+            document.getElementById('startStopBtn').textContent = '▶ Iniciar';
+            document.getElementById('startStopBtn').style.backgroundColor = 'var(--btn-bg)';
         }
 
-        let currentFontSize = 1.2;
-        function changeFontSize(delta) {
-            currentFontSize += delta * 0.1;
-            if (currentFontSize < 0.8) currentFontSize = 0.8;
-            if (currentFontSize > 3.0) currentFontSize = 3.0;
-            document.getElementById('main-content').style.fontSize = currentFontSize + 'rem';
+        // --- LÓGICA DEL TAMAÑO DE TEXTO ---
+        let currentFontSize = 16; // Tamaño inicial en px
+
+        function changeFontSize(change) {
+            currentFontSize += change;
+            // Limitar el tamaño para que no sea absurdamente pequeño o grande
+            if (currentFontSize < 12) currentFontSize = 12;
+            if (currentFontSize > 40) currentFontSize = 40;
+            document.getElementById('sermonContent').style.fontSize = currentFontSize + 'px';
         }
 
-        function toggleTheme(theme) {
-            document.body.classList.remove('dark-mode', 'sepia-mode');
-            if (theme === 'dark') document.body.classList.add('dark-mode');
-            if (theme === 'sepia') document.body.classList.add('sepia-mode');
+        // --- LÓGICA DEL MODO OSCURO ---
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeBtn');
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                btn.textContent = '☀️ Día';
+            } else {
+                btn.textContent = '🌙 Noche';
+            }
         }
     </script>
 </body>
