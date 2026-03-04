@@ -1,309 +1,387 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<html lang="es"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cómo anclar tu mente a la Verdad - Libreta Interactiva</title>
+    <title>Libreta Pro - Bosquejo Minimalista</title>
     <style>
         :root {
-            /* Modo Claro (Por defecto) */
-            --bg-color: #f9f9f6;
-            --paper-color: #ffffff;
-            --text-color: #333333;
-            --accent-color: #2c3e50;
-            --verse-bg: #f0f4f8;
-            --verse-border: #3498db;
-            --highlight-bg: #fff3cd;
-            --highlight-border: #ffeeba;
-            --toolbar-bg: #ffffff;
-            --btn-bg: #ecf0f1;
-            --btn-hover: #bdc3c7;
+            --bg-color: #f4f7f6;
+            --toolbar-bg: #2c3e50;
+            --toolbar-text: #ecf0f1;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --highlight: #d4af37;
+            --btn-hover: #34495e;
+            --quote-bg: #fcf8e3;
         }
-
-        body.dark-mode {
-            /* Modo Oscuro */
-            --bg-color: #121212;
-            --paper-color: #1e1e1e;
-            --text-color: #e0e0e0;
-            --accent-color: #5dade2;
-            --verse-bg: #2a2a2a;
-            --verse-border: #5dade2;
-            --highlight-bg: #3a3215;
-            --highlight-border: #66500b;
-            --toolbar-bg: #1e1e1e;
-            --btn-bg: #333333;
-            --btn-hover: #4d4d4d;
-        }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            color: var(--text-main);
             margin: 0;
-            padding: 20px;
-            transition: background-color 0.3s, color 0.3s;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-
-        /* Barra de herramientas flotante */
-        .toolbar {
-            position: sticky;
-            top: 10px;
+        /* Toolbar */
+        #toolbar {
+            width: 100%;
             background-color: var(--toolbar-bg);
-            padding: 10px 20px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            color: var(--toolbar-text);
+            padding: 12px 20px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 800px;
-            margin: 0 auto 20px auto;
-            z-index: 1000;
-            border: 1px solid rgba(128, 128, 128, 0.2);
-        }
-
-        .tools-group {
-            display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 10px;
+            justify-content: center;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-sizing: border-box;
         }
-
+        .tool-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 12px;
+            border-radius: 8px;
+        }
         button {
-            background-color: var(--btn-bg);
-            color: var(--text-color);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
+            background-color: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--toolbar-text);
+            padding: 6px 12px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: bold;
-            transition: background-color 0.2s;
+            transition: all 0.2s ease;
         }
-
         button:hover {
-            background-color: var(--btn-hover);
+            background-color: rgba(255,255,255,0.2);
+            border-color: var(--toolbar-text);
         }
-
-        #timerDisplay {
-            font-size: 1.2em;
+        input[type="color"] {
+            border: none;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            background: none;
+            border-radius: 4px;
+        }
+        /* Cronómetro */
+        #stopwatch-display {
+            font-family: monospace;
+            font-size: 1.2rem;
             font-weight: bold;
-            font-variant-numeric: tabular-nums;
-            min-width: 60px;
+            margin: 0 10px;
+            color: var(--highlight);
+        }
+        /* Área de edición */
+        #editor-container {
+            width: 100%;
+            max-width: 850px;
+            margin-top: 30px;
+            margin-bottom: 50px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        #editor {
+            background-color: var(--card-bg);
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            min-height: 70vh;
+            outline: none;
+            font-size: 18px;
+            line-height: 1.6;
+            transition: font-size 0.3s ease;
+        }
+        #editor:focus {
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+        }
+        /* Tipografía interna del editor - ESTILOS DE BOSQUEJO */
+        h1 { 
+            color: var(--toolbar-bg); 
+            border-bottom: 2px solid var(--highlight); 
+            padding-bottom: 10px; 
             text-align: center;
-            color: var(--accent-color);
+            font-size: 2.2em;
+            margin-top: 30px;
+            margin-bottom: 20px;
         }
-
-        /* Libreta principal */
-        .notebook {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: var(--paper-color);
-            padding: 40px;
+        h3.buena-noticia {
+            color: var(--highlight);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        p.premisa {
+            font-size: 1.1em;
+            color: #555;
+            background: #f9f9f9;
+            padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-top: 8px solid var(--accent-color);
-            font-size: 16px; /* Tamaño base modificable */
-            transition: font-size 0.2s;
-            outline: none; /* Quita el borde azul al hacer clic para editar */
+            border-left: 4px solid var(--toolbar-bg);
+            margin-bottom: 30px;
+        }
+        
+        /* Sistema de listas para el bosquejo */
+        ol.main-outline {
+            list-style-type: upper-roman;
+            padding-left: 20px;
+        }
+        ol.main-outline > li {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--toolbar-bg);
+            margin-bottom: 25px;
+            margin-top: 20px;
+        }
+        ol.sub-outline {
+            list-style-type: upper-alpha;
+            padding-left: 30px;
+            font-size: 0.8em;
+            font-weight: normal;
+            color: var(--text-main);
+            margin-top: 10px;
+        }
+        ol.sub-outline > li {
+            margin-bottom: 12px;
+        }
+        ul.details-outline {
+            list-style-type: disc;
+            padding-left: 30px;
+            margin-top: 8px;
+        }
+        ul.details-outline > li {
+            margin-bottom: 8px;
         }
 
-        h1 { color: var(--accent-color); font-size: 2.2em; text-align: center; margin-bottom: 5px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
-        h2 { color: var(--accent-color); font-size: 1.5em; margin-top: 35px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        
-        .buena-noticia { background-color: var(--accent-color); color: white; padding: 15px; border-radius: 5px; margin-bottom: 30px; text-align: center; font-style: italic; }
-        .buena-noticia strong { display: block; text-transform: uppercase; font-size: 0.9em; letter-spacing: 1px; margin-bottom: 5px; font-style: normal; }
-        
-        .verse-box { background-color: var(--verse-bg); border-left: 4px solid var(--verse-border); padding: 10px 15px; margin: 10px 0; font-style: italic; color: var(--text-color); opacity: 0.9; }
-        
-        ul { padding-left: 20px; }
-        li { margin-bottom: 15px; }
-        
-        .highlight-box { background-color: var(--highlight-bg); border: 1px solid var(--highlight-border); padding: 20px; border-radius: 5px; margin-top: 30px; text-align: center; font-size: 1.1em; font-weight: bold; color: var(--text-color); }
-        .bold-term { font-weight: bold; color: var(--accent-color); }
-
-        /* Estilo para que el usuario sepa que puede editar */
-        .notebook:focus {
-            box-shadow: 0 0 0 2px var(--accent-color);
+        blockquote {
+            background-color: var(--quote-bg);
+            border-left: 5px solid var(--highlight);
+            margin: 15px 0;
+            padding: 15px 20px;
+            font-style: italic;
+            border-radius: 0 8px 8px 0;
+            color: #444;
+            font-size: 0.95em;
+        }
+        .reference { 
+            font-weight: bold; 
+            display: block; 
+            margin-bottom: 8px; 
+            color: var(--toolbar-bg); 
+            font-style: normal;
         }
     </style>
 </head>
 <body>
 
-    <div class="toolbar">
-        <div class="tools-group">
-            <span id="timerDisplay">00:00</span>
-            <button id="startStopBtn" onclick="toggleTimer()">▶ Iniciar</button>
-            <button onclick="resetTimer()">🔄 Cero</button>
-        </div>
-        
-        <div class="tools-group">
-            <button onclick="changeFontSize(-2)">A -</button>
-            <button onclick="changeFontSize(2)">A +</button>
+    <div id="toolbar" contenteditable="false">
+        <div class="tool-group">
+            <button onclick="toggleBold()" title="Negrita"><b>B</b></button>
+            <button onclick="toggleOrderedList()" title="Numeración"><b>1.</b></button>
+            <button onclick="toggleUnorderedList()" title="Viñetas"><b>•</b></button>
         </div>
 
-        <div class="tools-group">
-            <button id="themeBtn" onclick="toggleTheme()">🌙 Noche</button>
+        <div class="tool-group">
+            <span title="Tamaño de letra general">Aa:</span>
+            <button onclick="changeFontSize(2)" title="Agrandar letra">+</button>
+            <button onclick="changeFontSize(-2)" title="Achicar letra">-</button>
+        </div>
+
+        <div class="tool-group">
+            <span title="Selecciona un texto y elige un color">🎨 Color:</span>
+            <input type="color" id="colorPicker" onchange="changeTextColor()" title="Cambiar color del texto seleccionado">
+        </div>
+
+        <div class="tool-group">
+            <span title="Lector en voz alta">🔊 Voz:</span>
+            <button onclick="speakText()">▶ Leer</button>
+            <button onclick="stopSpeech()">■ Detener</button>
+        </div>
+
+        <div class="tool-group">
+            <span>⏱:</span>
+            <span id="stopwatch-display">00:00:00</span>
+            <button onclick="toggleStopwatch()" id="btn-sw">Iniciar</button>
+            <button onclick="resetStopwatch()">Reiniciar</button>
+        </div>
+
+        <div class="tool-group">
+            <button onclick="saveAsHTML()" style="background-color: var(--highlight); color: #000; font-weight: bold; border:none;">💾 Guardar</button>
         </div>
     </div>
 
-    <div class="notebook" id="sermonContent" contenteditable="true">
-        
-        <div class="buena-noticia">
-            <strong>Buena Noticia</strong>
-            1 Corintios 2:16: "Porque ¿quién conoció la mente del Señor? ¿Quién le instruirá? Mas nosotros tenemos la mente de Cristo."
+    <div id="editor-container">
+        <div id="editor" contenteditable="true" style="font-size: 20px;">
+            
+            <h3 class="buena-noticia">Buena Noticia</h3>
+            <blockquote>
+                <span class="reference">1 Juan 4:16 (Nueva Traducción Viviente)</span>
+                "Nosotros sabemos cuánto nos ama Dios y hemos puesto nuestra confianza en su amor. Dios es amor, y todos los que viven en amor viven en Dios y Dios vive en ellos."
+            </blockquote>
+
+            <h1>La Gracia de Entresacar<br><br></h1>
+
+            <p class="premisa"><strong>Premisa:</strong> La vida no es un quirófano estéril (sin problemas), es una <strong>mina</strong> (mezcla de escoria y oro). Entresacar no es un esfuerzo por ser aceptado, es el privilegio de quien ya lo es.</p>
+
+            <ol class="main-outline">
+                <li><span style="color: rgb(126, 50, 61);">El Fundamento: </span>La promesa cumplida de Dios en Cristo.&nbsp;<ol class="sub-outline">
+                        <li>El Nuevo Pacto no es una exigencia externa de comportamiento, sino una realidad interna de identidad inscrita por Dios.</li>
+                        <blockquote>
+                            <span class="reference">Hebreos 8:10 (Nueva Traducción Viviente)</span>
+                            "Pondré mis leyes en su mente y las escribiré en su corazón. Yo seré su Dios, y ellos serán mi pueblo."
+                        </blockquote>
+                        <li><strong>Punto clave:</strong> La diferencia no es <em>hacer</em> para conseguir, sino <em>ser</em> para vivir.</li>
+                    </ol>
+                </li>
+
+                <li><span style="color: rgb(126, 50, 61);">La perspectiva que Dios le Dio a Jeremías&nbsp;</span>El Principio de Selección: Oro vs. Escoria
+                    <ol class="sub-outline">
+                        <li>"Entresacar" no es un esfuerzo mental agotador de "pensamiento positivo" forzado (estoicismo). Es el discernimiento espiritual dado por Dios para diferenciar la sustancia eterna del ruido temporal.</li>
+                        <blockquote>
+                            <span class="reference">Jeremías 15:19 (Nueva Versión Internacional)</span>
+                            "Si separas lo precioso de lo vil, serás mi portavoz."
+                        </blockquote>
+                        <li><strong>Aplicación cotidiana:</strong> Ante una crisis o una ofensa, el "minero" no retiene la escoria (el dolor, la queja, el pánico), sino que extrae el oro (la provisión, el propósito, la identidad de amado) y descansa en ello.</li>
+                    </ol>
+                </li>
+
+                <li><span style="color: rgb(126, 50, 61);">El Filtro del Amor y el Buen Juicio</span><ol class="sub-outline">
+                        <li>Este filtro opera mediante la sabiduría y el buen juicio que fluyen de sabernos profundamente amados, no por temor al castigo.</li>
+                        <blockquote>
+                            <span class="reference">Filipenses 1:9-10 (Nueva Traducción Viviente)</span>
+                            "Quiero que sigan creciendo en conocimiento y entendimiento, para que comprendan lo que realmente importa [para que aprueben lo mejor]."
+                        </blockquote>
+                        <li><span style="color: rgb(212, 85, 105);"><strong>Aplicación cotidiana:</strong> </span>Usamos el "amor de Dios" como el fuego que prueba las situaciones:
+                            <ul class="details-outline">
+                                <li><strong>No retenemos la escoria:</strong> Soltamos el deseo de quejarnos o de ganar la pelea (orgullo).</li>
+                                <li><strong>Atesoramos el oro:</strong> Tomamos la Gracia para preservar la unidad y mostrar paciencia.</li><li><span style="color: rgb(212, 85, 105);">Ejemplos :&nbsp;<strong><br></strong></span></li><li><strong>Ante la crítica:</strong> Necesitamos la sabiduría del Espíritu 
+para saber qué parte dejar pasar sin miedo, y si hay algo constructivo 
+que debamos retener.<strong><br></strong></li><li><strong>Ante la queja:</strong> Si surge el deseo de quejarme, entiendo 
+que es un "pensamiento escoria". El Espíritu me ayuda a soltarlo porque 
+sé que no es bueno para mí.<strong><br></strong></li><li><strong>Ante la ofensa:</strong> Aplico lo que dice Pablo: parto de la 
+base del amor que he recibido de Dios. Al saberme amado y aceptado, 
+adquiero el buen juicio para no tomar el veneno de la ofensa.</li></ul></li></ol></li><li>Serás como mi boca:&nbsp; La Nueva Narrativa
+                    <ol class="sub-outline">
+                        <li>Al entresacar lo precioso, nuestra narrativa (manera de hablar) cambia. Dejamos de hablar desde la reacción al problema y empezamos a hablar desde la realidad eterna de la Gracia. Nos volvemos portavoces del Reino.</li><li><strong>Aprender a decir "No":</strong> Ya no dices "no" desde el enojo,
+ el miedo, la culpa, la vergüenza o la frustración. Lo dices desde la 
+seguridad de que no necesitas ganarte la aprobación de nadie, porque ya 
+fuiste aceptado en Cristo. Si decir "no" es lo mejor para ti y los 
+demás, entresacas esa decisión en paz, con sabiduría y buen juicio.</li><li>Lo que ha cambiado no es solo la narrativa externa, sino <strong>la sustancia interna</strong>.</li>
+                    </ol>
+                </li>
+            </ol>
         </div>
-
-        <h1>Cómo anclar tu mente a la Verdad</h1>
-
-        <h2>Introducción: El Puente hacia la nueva normalidad</h2>
-        <ul>
-            <li><span class="bold-term">El repaso:</span> La semana pasada vimos que las crisis son como apretar un tubo de pasta dental: solo revelan lo que hay dentro. Vimos que el vino nuevo de la gracia revienta el odre del viejo "yo".</li>
-            <li><span class="bold-term">El problema:</span> A veces creemos que ser un odre nuevo y "pensar bien" significa que nunca más tendremos ansiedad, dudas o miedo. Esa es una carga imposible en la sociedad actual.</li>
-            <li><span class="bold-term">La Verdad:</span> Hoy vamos a desarmar el motor de nuestra mente para entender cómo funciona, y luego veremos la radiografía de un colapso mental en uno de los hombres más ungidos de la Biblia, para entender cómo la Gracia interviene cuando nuestro motor se funde.</li>
-        </ul>
-
-        <h2>I. El Mapa de la Mente: Los 6 sistemas operativos</h2>
-        <p>Antes de ver una crisis, necesitamos entender cómo diseñó Dios nuestro ecosistema mental. Todo pensamiento hace este recorrido:</p>
-        
-        <ul>
-            <li><span class="bold-term">La Atención (La Linterna):</span> La puerta de entrada.
-                <div class="verse-box">Colosenses 3:2: "Poned la mira en las cosas de arriba, no en las de la tierra."</div>
-                Es lo que decides iluminar. Aquello a lo que le prestas atención, crece.
-            </li>
-            
-            <li><span class="bold-term">Las Emociones (El Tablero de Alarmas):</span> La reacción química.
-                <div class="verse-box">Salmo 42:5: "¿Por qué te abates, oh alma mía, y te turbas dentro de mí? Espera en Dios."</div>
-                No son pecado, son indicadores. Son alarmas válidas que nos avisan que algo está pasando.
-            </li>
-            
-            <li><span class="bold-term">La Memoria (El Archivo):</span> El registro histórico.
-                <div class="verse-box">Lamentaciones 3:21: "Esto traigo a mi memoria, por lo cual tengo esperanza."</div>
-                El lugar donde guardamos el registro de quiénes somos y qué nos ha pasado.
-            </li>
-            
-            <li><span class="bold-term">La Imaginación (El Simulador):</span> La proyección.
-                <div class="verse-box">Isaías 26:3: "Tú guardarás en completa paz a aquel cuyo pensamiento [imaginación sostenida] en ti persevera."</div>
-                La capacidad de proyectar el futuro. Es útil para planear, pero destructiva si la usamos para adivinar catástrofes o inventar identidades que Dios no nos dio.
-            </li>
-            
-            <li><span class="bold-term">La Razón (El Analista):</span> El filtro lógico.
-                <div class="verse-box">2 Corintios 10:5: "Derribando argumentos y toda altivez que se levanta contra el conocimiento de Dios."</div>
-                La lógica que intenta darle sentido a los cuatro puntos anteriores.
-            </li>
-            
-            <li><span class="bold-term">La Voluntad (El Timón):</span> La decisión.
-                <div class="verse-box">Filipenses 2:13: "Porque Dios es el que en vosotros produce así el querer como el hacer, por su buena voluntad."</div>
-                La elección final y la acción que tomamos.
-            </li>
-        </ul>
-
-        <h2>II. El caso de Elías</h2>
-        <p>Veamos este mapa funcionando en la vida real. Elías acaba de ver fuego caer del cielo en el Carmelo, pero recibe una amenaza de muerte de la reina Jezabel (un mensaje de WhatsApp destructivo). En cuestión de segundos, su sistema colapsa:</p>
-        
-        <ul>
-            <li><span class="bold-term">Error en la Atención:</span> 
-                <div class="verse-box">> 1 Reyes 19:3: "Viendo, pues, el peligro..."</div> 
-                Elías apagó la linterna del milagro de ayer y la enfocó solo en la amenaza.
-            </li>
-            <li><span class="bold-term">Se disparan las Emociones:</span> Al iluminar la amenaza, la alarma de pánico sonó. Sintió terror y huyó para salvar su vida.</li>
-            <li><span class="bold-term">Busca en el Archivo equivocado (Memoria):</span> 
-                <div class="verse-box">> 1 Reyes 19:4: "...pues no soy yo mejor que mis padres."</div> 
-                Su mente no buscó el archivo de las promesas de Dios, buscó el archivo de sus fracasos generacionales.
-            </li>
-            <li><span class="bold-term">El Simulador le miente (Imaginación):</span> 
-                <div class="verse-box">> 1 Reyes 19:10: "...y sólo yo he quedado, y me buscan para quitarme la vida."</div> 
-                Creó una película falsa donde era el único creyente vivo. (Su emoción era real, pero su imaginación le estaba mintiendo).
-            </li>
-            <li><span class="bold-term">El Analista es secuestrado (Razón):</span> Su lógica, alimentada por el miedo, concluyó: "Es imposible ganar, el ministerio fracasó, no hay salida matemática".</li>
-            <li><span class="bold-term">El Timón del Miedo (Voluntad):</span> 
-                <div class="verse-box">> 1 Reyes 19:4: "...y vino y se sentó debajo de un enebro, deseando morirse."</div> 
-                Tomó la decisión final: aislarse y rendirse.
-            </li>
-        </ul>
-
-        <h2>III. La Respuesta de la Gracia</h2>
-        <ul>
-            <li><span class="bold-term">El contraste:</span> Cuando nuestra mente hace cortocircuito por el estrés, la religión nos condena. Si los amigos de Job hubieran estado ahí, le habrían gritado a Elías: "¡Falto de fe, perdiste la unción, pecador!".</li>
-            <li><span class="bold-term">La acción de la Gracia:</span> Dios sabe que Elías no está rebelde, está exhausto.
-                <div class="verse-box">1 Reyes 19:5-6: "Y echándose debajo del enebro, se quedó dormido; y he aquí luego un ángel le tocó, y le dijo: Levántate, come... y comió y bebió, y volvió a dormirse."</div>
-                Dios no le da un sermón; le da pan, agua y lo manda a dormir. Restaura su cuerpo para apagar las alarmas, y luego, con un "silbo apacible", corrige su Razón y su Imaginación diciéndole la verdad: "No estás solo, hay 7.000 más".
-            </li>
-        </ul>
-
-        <h2>Aplicación Práctica</h2>
-        <ul>
-            <li><span class="bold-term">El punto de quiebre:</span> No puedes evitar que la Alarma (Emoción) suene cuando llega una crisis. Pero el mejor lugar para romper el ciclo es cuando el balón le llega a la Razón.</li>
-            <li><span class="bold-term">El Freno:</span> Cuando el simulador (la imaginación) empiece a proyectar películas de terror y escenarios catastróficos, usa tu Razón iluminada por el Espíritu para pitar la falta. Cede el silbato a la Paz de Cristo.</li>
-        </ul>
-
-        <div class="highlight-box">
-            Llévate esto a casa:<br>
-            "Mi emoción es real, pero mi imaginación no es profeta. Corto la película aquí porque Dios no ha dicho esto. El miedo está gritando, pero la Gracia tiene el silbato."
-        </div>
-
     </div>
 
     <script>
-        // --- LÓGICA DEL CRONÓMETRO ---
-        let timerInterval;
-        let seconds = 0;
-        let isRunning = false;
-
-        function updateTimerDisplay() {
-            const min = String(Math.floor(seconds / 60)).padStart(2, '0');
-            const sec = String(seconds % 60).padStart(2, '0');
-            document.getElementById('timerDisplay').textContent = `${min}:${sec}`;
+        // Nuevas funciones de formato de texto (Negrita, Numeración y Viñetas)
+        function toggleBold() {
+            document.execCommand('bold', false, null);
+            document.getElementById('editor').focus();
         }
 
-        function toggleTimer() {
-            const btn = document.getElementById('startStopBtn');
+        function toggleOrderedList() {
+            document.execCommand('insertOrderedList', false, null);
+            document.getElementById('editor').focus();
+        }
+
+        function toggleUnorderedList() {
+            document.execCommand('insertUnorderedList', false, null);
+            document.getElementById('editor').focus();
+        }
+
+        // 1. Tamaño de letra (Afecta a todo el documento para fácil lectura en móvil)
+        let currentFontSize = 18;
+        function changeFontSize(step) {
+            currentFontSize += step;
+            if (currentFontSize < 12) currentFontSize = 12;
+            if (currentFontSize > 40) currentFontSize = 40;
+            document.getElementById('editor').style.fontSize = currentFontSize + 'px';
+        }
+
+        // 2. Cambiar color del texto seleccionado
+        function changeTextColor() {
+            let color = document.getElementById('colorPicker').value;
+            document.execCommand('styleWithCSS', false, true);
+            document.execCommand('foreColor', false, color);
+            document.getElementById('editor').focus();
+        }
+
+        // 3. Lector en Voz Alta
+        let synth = window.speechSynthesis;
+        let utterance = new SpeechSynthesisUtterance();
+        utterance.lang = 'es-ES';
+
+        function speakText() {
+            synth.cancel(); 
+            let selectedText = window.getSelection().toString();
+            let textToRead = selectedText.length > 0 ? selectedText : document.getElementById('editor').innerText;
+            utterance.text = textToRead;
+            synth.speak(utterance);
+        }
+
+        function stopSpeech() {
+            synth.cancel();
+        }
+
+        // 4. Cronómetro
+        let timerInterval;
+        let elapsedSeconds = 0;
+        let isRunning = false;
+
+        function formatTime(sec) {
+            let hrs = Math.floor(sec / 3600).toString().padStart(2, '0');
+            let mins = Math.floor((sec % 3600) / 60).toString().padStart(2, '0');
+            let secs = (sec % 60).toString().padStart(2, '0');
+            return `${hrs}:${mins}:${secs}`;
+        }
+
+        function toggleStopwatch() {
+            let btn = document.getElementById('btn-sw');
             if (isRunning) {
                 clearInterval(timerInterval);
-                btn.textContent = '▶ Iniciar';
-                btn.style.backgroundColor = 'var(--btn-bg)';
+                btn.innerText = "Reanudar";
             } else {
                 timerInterval = setInterval(() => {
-                    seconds++;
-                    updateTimerDisplay();
+                    elapsedSeconds++;
+                    document.getElementById('stopwatch-display').innerText = formatTime(elapsedSeconds);
                 }, 1000);
-                btn.textContent = '⏸ Pausar';
-                btn.style.backgroundColor = '#ffcccb'; // Indicador visual de que está corriendo
+                btn.innerText = "Pausar";
             }
             isRunning = !isRunning;
         }
 
-        function resetTimer() {
+        function resetStopwatch() {
             clearInterval(timerInterval);
-            seconds = 0;
             isRunning = false;
-            updateTimerDisplay();
-            document.getElementById('startStopBtn').textContent = '▶ Iniciar';
-            document.getElementById('startStopBtn').style.backgroundColor = 'var(--btn-bg)';
+            elapsedSeconds = 0;
+            document.getElementById('stopwatch-display').innerText = "00:00:00";
+            document.getElementById('btn-sw').innerText = "Iniciar";
         }
 
-        // --- LÓGICA DEL TAMAÑO DE TEXTO ---
-        let currentFontSize = 16; // Tamaño inicial en px
-
-        function changeFontSize(change) {
-            currentFontSize += change;
-            // Limitar el tamaño para que no sea absurdamente pequeño o grande
-            if (currentFontSize < 12) currentFontSize = 12;
-            if (currentFontSize > 40) currentFontSize = 40;
-            document.getElementById('sermonContent').style.fontSize = currentFontSize + 'px';
-        }
-
-        // --- LÓGICA DEL MODO OSCURO ---
-        function toggleTheme() {
-            const body = document.body;
-            const btn = document.getElementById('themeBtn');
-            body.classList.toggle('dark-mode');
-            
-            if (body.classList.contains('dark-mode')) {
-                btn.textContent = '☀️ Día';
-            } else {
-                btn.textContent = '🌙 Noche';
-            }
+        // 5. Guardar como HTML
+        function saveAsHTML() {
+            let htmlContent = document.documentElement.outerHTML;
+            let blob = new Blob([htmlContent], { type: 'text/html' });
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = 'Bosquejo_Minimalista_Entresacar.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
     </script>
-</body>
-</html>
+
+</body></html>
