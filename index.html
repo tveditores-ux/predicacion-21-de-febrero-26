@@ -1,387 +1,260 @@
-<html lang="es"><head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libreta Pro - Bosquejo Minimalista</title>
+    <title>Libreta Pro PAS: El Tribunal de la Mente</title>
     <style>
         :root {
-            --bg-color: #f4f7f6;
+            --primary-dark: #1e293b;
+            --biblical-red: #d22d2d;
+            --accent-gold: #b8860b;
+            --title-color: #2e5984;
+            --subtitle-color: #3d8c8c;
+            --bg-canvas: #fdfdfd;
             --toolbar-bg: #2c3e50;
-            --toolbar-text: #ecf0f1;
-            --card-bg: #ffffff;
-            --text-main: #333333;
-            --highlight: #d4af37;
-            --btn-hover: #34495e;
-            --quote-bg: #fcf8e3;
+            --text-main: #2d3436;
         }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ebeef1;
             color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center;
         }
-        /* Toolbar */
+
+        /* TOOLBAR */
         #toolbar {
             width: 100%;
             background-color: var(--toolbar-bg);
-            color: var(--toolbar-text);
-            padding: 12px 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            box-sizing: border-box;
-        }
-        .tool-group {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(255,255,255,0.1);
-            padding: 5px 12px;
-            border-radius: 8px;
-        }
-        button {
-            background-color: transparent;
-            border: 1px solid rgba(255,255,255,0.3);
-            color: var(--toolbar-text);
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-        button:hover {
-            background-color: rgba(255,255,255,0.2);
-            border-color: var(--toolbar-text);
-        }
-        input[type="color"] {
-            border: none;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            background: none;
-            border-radius: 4px;
-        }
-        /* Cronómetro */
-        #stopwatch-display {
-            font-family: monospace;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin: 0 10px;
-            color: var(--highlight);
-        }
-        /* Área de edición */
-        #editor-container {
-            width: 100%;
-            max-width: 850px;
-            margin-top: 30px;
-            margin-bottom: 50px;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-        #editor {
-            background-color: var(--card-bg);
-            padding: 40px 50px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            min-height: 70vh;
-            outline: none;
-            font-size: 18px;
-            line-height: 1.6;
-            transition: font-size 0.3s ease;
-        }
-        #editor:focus {
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
-            border: 1px solid rgba(212, 175, 55, 0.5);
-        }
-        /* Tipografía interna del editor - ESTILOS DE BOSQUEJO */
-        h1 { 
-            color: var(--toolbar-bg); 
-            border-bottom: 2px solid var(--highlight); 
-            padding-bottom: 10px; 
-            text-align: center;
-            font-size: 2.2em;
-            margin-top: 30px;
-            margin-bottom: 20px;
-        }
-        h3.buena-noticia {
-            color: var(--highlight);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-        p.premisa {
-            font-size: 1.1em;
-            color: #555;
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid var(--toolbar-bg);
-            margin-bottom: 30px;
-        }
-        
-        /* Sistema de listas para el bosquejo */
-        ol.main-outline {
-            list-style-type: upper-roman;
-            padding-left: 20px;
-        }
-        ol.main-outline > li {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: var(--toolbar-bg);
-            margin-bottom: 25px;
-            margin-top: 20px;
-        }
-        ol.sub-outline {
-            list-style-type: upper-alpha;
-            padding-left: 30px;
-            font-size: 0.8em;
-            font-weight: normal;
-            color: var(--text-main);
-            margin-top: 10px;
-        }
-        ol.sub-outline > li {
-            margin-bottom: 12px;
-        }
-        ul.details-outline {
-            list-style-type: disc;
-            padding-left: 30px;
-            margin-top: 8px;
-        }
-        ul.details-outline > li {
-            margin-bottom: 8px;
+            color: white;
+            padding: 10px;
+            display: flex; flex-wrap: wrap; gap: 15px;
+            justify-content: center; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
+        .tool-group {
+            display: flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 12px; border-radius: 8px;
+        }
+
+        button {
+            background: transparent; border: 1px solid rgba(255,255,255,0.3);
+            color: white; padding: 5px 10px; border-radius: 4px;
+            cursor: pointer; font-size: 14px; transition: 0.2s;
+        }
+
+        button:hover { background: var(--accent-gold); color: black; }
+
+        #stopwatch-display {
+            font-family: monospace; font-size: 1.3rem;
+            font-weight: bold; color: var(--accent-gold);
+        }
+
+        /* CONTENEDOR */
+        .notebook-container {
+            width: 95%; max-width: 900px;
+            margin: 25px auto; background: white;
+            border-radius: 10px; box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            border: 1px solid #d1d5db; overflow: hidden;
+        }
+
+        .header-pas {
+            background: var(--primary-dark);
+            color: white; padding: 30px; text-align: center;
+            border-bottom: 5px solid var(--accent-gold);
+        }
+
+        .tabs { display: flex; background: #f8fafc; border-bottom: 1px solid #e2e8f0; }
+        .tab-btn {
+            flex: 1; padding: 15px; border: none; background: none;
+            cursor: pointer; font-weight: bold; color: #64748b;
+        }
+        .tab-btn.active { 
+            color: var(--title-color); background: white; 
+            border-bottom: 3px solid var(--title-color); 
+        }
+
+        .tab-content {
+            display: none; padding: 50px 60px; outline: none;
+            font-size: 20px; min-height: 800px; line-height: 1.7;
+            background-color: var(--bg-canvas);
+        }
+        .tab-content.active { display: block; }
+
+        /* ESTILOS DE TEXTO PERSONALIZADOS */
+        .titulo-pro { color: var(--title-color); font-size: 2.5em; text-align: center; font-weight: 800; margin-bottom: 0.5em; }
+        .subtitulo-pro { color: var(--subtitle-color); font-size: 1.6em; font-weight: 700; margin-top: 1.5em; border-bottom: 1px solid #eee; }
+        
+        .texto-biblico { color: var(--biblical-red) !important; font-style: italic; }
+        .cita-negrita { font-weight: 900 !important; color: #000; }
+        
         blockquote {
-            background-color: var(--quote-bg);
-            border-left: 5px solid var(--highlight);
-            margin: 15px 0;
-            padding: 15px 20px;
-            font-style: italic;
+            border-left: 5px solid var(--accent-gold);
+            background: #fffcf0; padding: 20px; margin: 25px 0;
             border-radius: 0 8px 8px 0;
-            color: #444;
-            font-size: 0.95em;
         }
-        .reference { 
-            font-weight: bold; 
-            display: block; 
-            margin-bottom: 8px; 
-            color: var(--toolbar-bg); 
-            font-style: normal;
-        }
+
+        input[type="color"] { border: none; width: 30px; height: 30px; cursor: pointer; background: none; }
+
+        @media print { #toolbar, .tabs { display: none; } }
     </style>
 </head>
 <body>
 
-    <div id="toolbar" contenteditable="false">
+    <div id="toolbar">
         <div class="tool-group">
-            <button onclick="toggleBold()" title="Negrita"><b>B</b></button>
-            <button onclick="toggleOrderedList()" title="Numeración"><b>1.</b></button>
-            <button onclick="toggleUnorderedList()" title="Viñetas"><b>•</b></button>
+            <button onclick="document.execCommand('undo')" title="Echar atrás">↶ Deshacer</button>
+            <button onclick="document.execCommand('redo')" title="Rehacer">↷</button>
         </div>
 
         <div class="tool-group">
-            <span title="Tamaño de letra general">Aa:</span>
-            <button onclick="changeFontSize(2)" title="Agrandar letra">+</button>
-            <button onclick="changeFontSize(-2)" title="Achicar letra">-</button>
+            <button onclick="changeFontSize(2)">A+</button>
+            <button onclick="changeFontSize(-2)">A-</button>
+            <input type="color" id="colorPicker" onchange="changeColor()" title="Color de texto">
         </div>
 
         <div class="tool-group">
-            <span title="Selecciona un texto y elige un color">🎨 Color:</span>
-            <input type="color" id="colorPicker" onchange="changeTextColor()" title="Cambiar color del texto seleccionado">
-        </div>
-
-        <div class="tool-group">
-            <span title="Lector en voz alta">🔊 Voz:</span>
-            <button onclick="speakText()">▶ Leer</button>
-            <button onclick="stopSpeech()">■ Detener</button>
-        </div>
-
-        <div class="tool-group">
-            <span>⏱:</span>
             <span id="stopwatch-display">00:00:00</span>
             <button onclick="toggleStopwatch()" id="btn-sw">Iniciar</button>
-            <button onclick="resetStopwatch()">Reiniciar</button>
         </div>
 
         <div class="tool-group">
-            <button onclick="saveAsHTML()" style="background-color: var(--highlight); color: #000; font-weight: bold; border:none;">💾 Guardar</button>
+            <button onclick="speakText()">🔊 Leer</button>
+            <button onclick="saveAsHTML()" style="background: var(--accent-gold); color: black; font-weight: bold;">💾 GUARDAR</button>
         </div>
     </div>
 
-    <div id="editor-container">
-        <div id="editor" contenteditable="true" style="font-size: 20px;">
-            
-            <h3 class="buena-noticia">Buena Noticia</h3>
+    <div class="notebook-container">
+        <div class="header-pas">
+            <h1>Libreta Pro: Ecosistema de Gracia</h1>
+            <p>Diseño Optimizado para Sensibilidad y Profundidad</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="abrirPestana(event, 'bosquejo')">Bosquejo Domingo</button>
+            <button class="tab-btn" onclick="abrirPestana(event, 'estudio')">Estudio Personal</button>
+        </div>
+
+        <div id="bosquejo" class="tab-content active" contenteditable="true" onkeydown="handleTab(event)">
+            <h1 class="titulo-pro">El Tribunal de la Mente vs. El Trono del Padre</h1>
+            <p><strong>Propósito:</strong> Desmantelar la autoacusación legalista para descansar en la justicia de Cristo.</p>
+
             <blockquote>
-                <span class="reference">1 Juan 4:16 (Nueva Traducción Viviente)</span>
-                "Nosotros sabemos cuánto nos ama Dios y hemos puesto nuestra confianza en su amor. Dios es amor, y todos los que viven en amor viven en Dios y Dios vive en ellos."
+                <span class="texto-biblico">"Pues si nuestro corazón nos reprende, mayor es Dios que nuestro corazón, y él sabe todas las cosas."</span> 
+                — <span class="cita-negrita">1 Juan 3:20</span>
             </blockquote>
 
-            <h1>La Gracia de Entresacar<br><br></h1>
+            <h2 class="subtitulo-pro">I. Introducción: El Desgaste de la Narrativa Interna</h2>
+            <ul>
+                <li><strong>El "Gancho" de Identificación:</strong> Existe un cansancio que no proviene del trabajo físico, sino del diálogo constante que sostenemos con nosotros mismos. Es ese murmullo que drena la paz y nos deja siempre sintiéndonos en deuda.</li>
+                <li><strong>La Ilustración de Asaf (<span class="cita-negrita">Salmo 73</span>):</strong> Usamos a Asaf para decir: "No te pasa solo a ti". Un hombre de Dios admitió que sus pensamientos casi le hacen perder el equilibrio.</li>
+                <li>Su mente estaba amargada y sus pensamientos lo hacían sentir "como un animal" (<span class="cita-negrita">v. 22</span>).</li>
+                <li><strong>Punto clave:</strong> La crisis de Asaf no fue un pecado externo, fue una crisis de pensamientos distorsionados que lo llevaron al agotamiento. Él representa a todo aquel cuya mente ha construido una versión severa y estrecha de su propia historia.</li>
+            </ul>
 
-            <p class="premisa"><strong>Premisa:</strong> La vida no es un quirófano estéril (sin problemas), es una <strong>mina</strong> (mezcla de escoria y oro). Entresacar no es un esfuerzo por ser aceptado, es el privilegio de quien ya lo es.</p>
+            <h2 class="subtitulo-pro">II. El Conflicto: Cuando la Mente se Convierte en Fiscal</h2>
+            <ul>
+                <li><span class="texto-biblico">"Pues si nuestro corazón nos reprende..."</span> (<span class="cita-negrita">1 Juan 3:20a</span>)</li>
+                <li><strong>La Función de la Mente que Reprende:</strong> Juan reconoce que nuestra narrativa interna a menudo actúa como un tribunal. Son pensamientos que cuestionan, enjuician y condenan, susurrando: "No fue suficiente", "Debiste hacerlo mejor".</li>
+                <li><strong>La Sentencia del "No Basta":</strong> Cuando la mente toma el control, reinterpreta la realidad y establece veredictos de culpabilidad internos.</li>
+                <li><strong>La Verdad Liberadora:</strong> Nuestra mente puede hablar, pero no tiene la autoridad final. No tiene el derecho legal de ocupar el lugar de Dios.</li>
+            </ul>
 
-            <ol class="main-outline">
-                <li><span style="color: rgb(126, 50, 61);">El Fundamento: </span>La promesa cumplida de Dios en Cristo.&nbsp;<ol class="sub-outline">
-                        <li>El Nuevo Pacto no es una exigencia externa de comportamiento, sino una realidad interna de identidad inscrita por Dios.</li>
-                        <blockquote>
-                            <span class="reference">Hebreos 8:10 (Nueva Traducción Viviente)</span>
-                            "Pondré mis leyes en su mente y las escribiré en su corazón. Yo seré su Dios, y ellos serán mi pueblo."
-                        </blockquote>
-                        <li><strong>Punto clave:</strong> La diferencia no es <em>hacer</em> para conseguir, sino <em>ser</em> para vivir.</li>
-                    </ol>
-                </li>
+            <h2 class="subtitulo-pro">III. La Supremacía del Padre: Dios es Mayor que nuestra Mentalidad</h2>
+            <ul>
+                <li><span class="texto-biblico">"...mayor es Dios que nuestro corazón, y él sabe todas las cosas."</span> (<span class="cita-negrita">1 Juan 3:20b</span>)</li>
+                <li><strong>Dios no juzga desde el fragmento:</strong> Nuestra mente juzga desde el cansancio o la inestabilidad emocional. El Padre es Mayor que nuestra manera de pensar. Sus pensamientos son más elevados.</li>
+                <li><strong>Omnisciencia que Alivia:</strong> El hecho de que "Él sabe todas las cosas" no es una amenaza, es un refugio. Tu mente solo ve el error; el Padre conoce el diseño completo.</li>
+                <li>Mientras tus pensamientos te dicen "insuficiente", Dios te mira a través del lente de Su amor soberano.</li>
+            </ul>
 
-                <li><span style="color: rgb(126, 50, 61);">La perspectiva que Dios le Dio a Jeremías&nbsp;</span>El Principio de Selección: Oro vs. Escoria
-                    <ol class="sub-outline">
-                        <li>"Entresacar" no es un esfuerzo mental agotador de "pensamiento positivo" forzado (estoicismo). Es el discernimiento espiritual dado por Dios para diferenciar la sustancia eterna del ruido temporal.</li>
-                        <blockquote>
-                            <span class="reference">Jeremías 15:19 (Nueva Versión Internacional)</span>
-                            "Si separas lo precioso de lo vil, serás mi portavoz."
-                        </blockquote>
-                        <li><strong>Aplicación cotidiana:</strong> Ante una crisis o una ofensa, el "minero" no retiene la escoria (el dolor, la queja, el pánico), sino que extrae el oro (la provisión, el propósito, la identidad de amado) y descansa en ello.</li>
-                    </ol>
-                </li>
+            <h2 class="subtitulo-pro">IV. La Victoria de Cristo: El Caso Cerrado en el Cielo</h2>
+            <ul>
+                <li><strong>Justicia Imputada vs. Autoevaluación:</strong> El alivio del creyente no nace de intentar "pensar más bonito" de sí mismo, sino de reconocer que ya no tiene que ser su propio juez.</li>
+                <li><strong>El Peligro del Orgullo Interno:</strong> Cuando nos condenamos, intentamos sustituir a Cristo. Si Dios dijo "Consumado es", nuestra mente no tiene permiso para reabrir el caso.</li>
+                <li><strong>El Intercesor Permanente (<span class="cita-negrita">Romanos 8:33-34</span>):</strong> ¿Quién acusará? Dios es el que justifica. Nuestra seguridad nace de que Cristo murió, resucitó e intercede por nosotros hoy.</li>
+            </ul>
 
-                <li><span style="color: rgb(126, 50, 61);">El Filtro del Amor y el Buen Juicio</span><ol class="sub-outline">
-                        <li>Este filtro opera mediante la sabiduría y el buen juicio que fluyen de sabernos profundamente amados, no por temor al castigo.</li>
-                        <blockquote>
-                            <span class="reference">Filipenses 1:9-10 (Nueva Traducción Viviente)</span>
-                            "Quiero que sigan creciendo en conocimiento y entendimiento, para que comprendan lo que realmente importa [para que aprueben lo mejor]."
-                        </blockquote>
-                        <li><span style="color: rgb(212, 85, 105);"><strong>Aplicación cotidiana:</strong> </span>Usamos el "amor de Dios" como el fuego que prueba las situaciones:
-                            <ul class="details-outline">
-                                <li><strong>No retenemos la escoria:</strong> Soltamos el deseo de quejarnos o de ganar la pelea (orgullo).</li>
-                                <li><strong>Atesoramos el oro:</strong> Tomamos la Gracia para preservar la unidad y mostrar paciencia.</li><li><span style="color: rgb(212, 85, 105);">Ejemplos :&nbsp;<strong><br></strong></span></li><li><strong>Ante la crítica:</strong> Necesitamos la sabiduría del Espíritu 
-para saber qué parte dejar pasar sin miedo, y si hay algo constructivo 
-que debamos retener.<strong><br></strong></li><li><strong>Ante la queja:</strong> Si surge el deseo de quejarme, entiendo 
-que es un "pensamiento escoria". El Espíritu me ayuda a soltarlo porque 
-sé que no es bueno para mí.<strong><br></strong></li><li><strong>Ante la ofensa:</strong> Aplico lo que dice Pablo: parto de la 
-base del amor que he recibido de Dios. Al saberme amado y aceptado, 
-adquiero el buen juicio para no tomar el veneno de la ofensa.</li></ul></li></ol></li><li>Serás como mi boca:&nbsp; La Nueva Narrativa
-                    <ol class="sub-outline">
-                        <li>Al entresacar lo precioso, nuestra narrativa (manera de hablar) cambia. Dejamos de hablar desde la reacción al problema y empezamos a hablar desde la realidad eterna de la Gracia. Nos volvemos portavoces del Reino.</li><li><strong>Aprender a decir "No":</strong> Ya no dices "no" desde el enojo,
- el miedo, la culpa, la vergüenza o la frustración. Lo dices desde la 
-seguridad de que no necesitas ganarte la aprobación de nadie, porque ya 
-fuiste aceptado en Cristo. Si decir "no" es lo mejor para ti y los 
-demás, entresacas esa decisión en paz, con sabiduría y buen juicio.</li><li>Lo que ha cambiado no es solo la narrativa externa, sino <strong>la sustancia interna</strong>.</li>
-                    </ol>
-                </li>
-            </ol>
+            <h2 class="subtitulo-pro">V. Conclusión y Aplicación: Del Juicio al Descanso</h2>
+            <ul>
+                <li><strong>Resumen:</strong> El Evangelio no es terapia, es una Justicia Mejor. Dios responde a tus pensamientos acusadores con adopción y gracia.</li>
+                <li><strong>Pregunta de Reflexión:</strong> ¿Vas a creerle a la sentencia de tus pensamientos o a la palabra final del Padre?</li>
+                <li><strong>Llamado al Descanso:</strong> Hoy, entrega el mazo del juez. El tribunal ha sido disuelto; puedes irte a casa en paz.</li>
+            </ul>
+        </div>
+
+        <div id="estudio" class="tab-content" contenteditable="true">
+            <h2 class="subtitulo-pro">Estudio Personal PAS</h2>
+            <p>Escribe aquí reflexiones adicionales que conecten con tu sensibilidad...</p>
         </div>
     </div>
 
     <script>
-        // Nuevas funciones de formato de texto (Negrita, Numeración y Viñetas)
-        function toggleBold() {
-            document.execCommand('bold', false, null);
-            document.getElementById('editor').focus();
-        }
-
-        function toggleOrderedList() {
-            document.execCommand('insertOrderedList', false, null);
-            document.getElementById('editor').focus();
-        }
-
-        function toggleUnorderedList() {
-            document.execCommand('insertUnorderedList', false, null);
-            document.getElementById('editor').focus();
-        }
-
-        // 1. Tamaño de letra (Afecta a todo el documento para fácil lectura en móvil)
-        let currentFontSize = 18;
-        function changeFontSize(step) {
-            currentFontSize += step;
-            if (currentFontSize < 12) currentFontSize = 12;
-            if (currentFontSize > 40) currentFontSize = 40;
-            document.getElementById('editor').style.fontSize = currentFontSize + 'px';
-        }
-
-        // 2. Cambiar color del texto seleccionado
-        function changeTextColor() {
-            let color = document.getElementById('colorPicker').value;
-            document.execCommand('styleWithCSS', false, true);
+        function changeColor() {
+            const color = document.getElementById('colorPicker').value;
             document.execCommand('foreColor', false, color);
-            document.getElementById('editor').focus();
         }
 
-        // 3. Lector en Voz Alta
-        let synth = window.speechSynthesis;
-        let utterance = new SpeechSynthesisUtterance();
-        utterance.lang = 'es-ES';
-
-        function speakText() {
-            synth.cancel(); 
-            let selectedText = window.getSelection().toString();
-            let textToRead = selectedText.length > 0 ? selectedText : document.getElementById('editor').innerText;
-            utterance.text = textToRead;
-            synth.speak(utterance);
+        let fontSize = 20;
+        function changeFontSize(step) {
+            fontSize += step;
+            document.querySelector('.tab-content.active').style.fontSize = fontSize + "px";
         }
 
-        function stopSpeech() {
-            synth.cancel();
+        function handleTab(e) {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                document.execCommand('insertHTML', false, '&nbsp;&nbsp;&nbsp;&nbsp;');
+            }
         }
 
-        // 4. Cronómetro
-        let timerInterval;
-        let elapsedSeconds = 0;
-        let isRunning = false;
-
-        function formatTime(sec) {
-            let hrs = Math.floor(sec / 3600).toString().padStart(2, '0');
-            let mins = Math.floor((sec % 3600) / 60).toString().padStart(2, '0');
-            let secs = (sec % 60).toString().padStart(2, '0');
-            return `${hrs}:${mins}:${secs}`;
+        function abrirPestana(evt, id) {
+            const contents = document.getElementsByClassName("tab-content");
+            for (let c of contents) c.classList.remove("active");
+            const btns = document.getElementsByClassName("tab-btn");
+            for (let b of btns) b.classList.remove("active");
+            document.getElementById(id).classList.add("active");
+            evt.currentTarget.classList.add("active");
         }
 
+        let timer, sec = 0, running = false;
         function toggleStopwatch() {
-            let btn = document.getElementById('btn-sw');
-            if (isRunning) {
-                clearInterval(timerInterval);
-                btn.innerText = "Reanudar";
-            } else {
-                timerInterval = setInterval(() => {
-                    elapsedSeconds++;
-                    document.getElementById('stopwatch-display').innerText = formatTime(elapsedSeconds);
+            const btn = document.getElementById('btn-sw');
+            if (!running) {
+                timer = setInterval(() => {
+                    sec++;
+                    let h = Math.floor(sec/3600).toString().padStart(2,'0');
+                    let m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
+                    let s = (sec%60).toString().padStart(2,'0');
+                    document.getElementById('stopwatch-display').innerText = `${h}:${m}:${s}`;
                 }, 1000);
                 btn.innerText = "Pausar";
+            } else {
+                clearInterval(timer);
+                btn.innerText = "Reanudar";
             }
-            isRunning = !isRunning;
+            running = !running;
         }
 
-        function resetStopwatch() {
-            clearInterval(timerInterval);
-            isRunning = false;
-            elapsedSeconds = 0;
-            document.getElementById('stopwatch-display').innerText = "00:00:00";
-            document.getElementById('btn-sw').innerText = "Iniciar";
+        function speakText() {
+            const text = document.querySelector('.tab-content.active').innerText;
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'es-ES';
+            window.speechSynthesis.speak(utter);
         }
 
-        // 5. Guardar como HTML
         function saveAsHTML() {
-            let htmlContent = document.documentElement.outerHTML;
-            let blob = new Blob([htmlContent], { type: 'text/html' });
-            let url = URL.createObjectURL(blob);
-            let a = document.createElement('a');
-            a.href = url;
-            a.download = 'Bosquejo_Minimalista_Entresacar.html';
-            document.body.appendChild(a);
+            const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'Libreta_PAS_Final.html';
             a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
         }
     </script>
-
-</body></html>
+</body>
+</html>
